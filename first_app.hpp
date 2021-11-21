@@ -1,11 +1,12 @@
 #pragma once
 
-#include "ace_window.hpp"
+#include "ace_device.hpp"
 #include "ace_pipeline.hpp"
+#include "ace_window.hpp"
 
 namespace ace {
 class FirstApp {
-  public:
+ public:
   static constexpr int WIDTH = 800;
   static constexpr int HEIGHT = 600;
 
@@ -13,7 +14,11 @@ class FirstApp {
 
  private:
   AceWindow aceWindow{WIDTH, HEIGHT, "Hello Vulkan!"};
-  AcePipeline acePipeline{"shaders/simple_shader.vert.spv", "shaders/simple_shader.frag.spv"};
-  
+  AceDevice aceDevice{aceWindow};
+  AcePipeline acePipeline{
+      aceDevice,
+      "shaders/simple_shader.vert.spv",
+      "shaders/simple_shader.frag.spv",
+      AcePipeline::defaultPipelineConfigInfo(WIDTH, HEIGHT)};
 };
 }  // namespace ace
